@@ -1,62 +1,81 @@
-# URL Shortener Microservice
+🔗 URL Shortener Microservice
+A lightweight URL shortening service built with FastAPI, supporting custom shortcodes and link expiry.
 
-## Overview
-This microservice provides URL shortening functionality with a RESTful API built using FastAPI.
+📦 Tech Stack
+Python 3.7+
 
-## Requirements
-- Python 3.7+
-- FastAPI
-- Uvicorn
-- Pydantic
+FastAPI
 
-## Installation
-1. Create a virtual environment (optional but recommended):
-   ```
-   python -m venv venv
-   .\venv\Scripts\activate  # Windows
-   source venv/bin/activate  # Linux/macOS
-   ```
+Uvicorn
 
-2. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+Pydantic
 
-## Running the Service
-Start the server with:
-```
+🚀 Getting Started
+1. Clone & Set Up Environment
+bash
+Copy
+Edit
+git clone <your-repo-url>
+cd url-shortener
+python -m venv venv
+source venv/bin/activate  # or .\venv\Scripts\activate on Windows
+2. Install Dependencies
+bash
+Copy
+Edit
+pip install -r requirements.txt
+▶️ Run the Application
+Start the development server:
+
+bash
+Copy
+Edit
 uvicorn main:app --host 127.0.0.1 --port 8000
-```
+Visit: http://127.0.0.1:8000
 
-The API will be available at `http://127.0.0.1:8000`.
+API docs: http://127.0.0.1:8000/docs
 
-## API Endpoints
+📖 API Reference
+🔹 Create a Short URL
+Method: POST /shorturls
 
-### Create Short URL
-- **POST** `/shorturls`
-- Request body:
-  ```json
-  {
-    "url": "https://example.com",
-    "validity": 30,
-    "shortcode": "customcode"  // optional
-  }
-  ```
-- Response:
-  ```json
-  {
-    "shortLink": "http://localhost:8000/customcode",
-    "expiry": "2025-01-01T00:30:00Z"
-  }
-  ```
+Body:
 
-### Redirect Short URL
-- **GET** `/{shortcode}`
-- Redirects to the original URL if valid and not expired.
+json
+Copy
+Edit
+{
+  "url": "https://example.com",
+  "validity": 30,
+  "shortcode": "custom123"  // Optional
+}
+Response:
 
-## Design Document
-See `DESIGN.md` for architectural and design details.
+json
+Copy
+Edit
+{
+  "shortLink": "http://localhost:8000/custom123",
+  "expiry": "2025-01-01T00:30:00Z"
+}
+🔹 Redirect to Original URL
+Method: GET /{shortcode}
 
-## Notes
-- The service uses an in-memory store; data will be lost on restart.
-- For production, consider using persistent storage and additional features like authentication.
+Automatically redirects to the original URL if valid.
+
+🧠 Architecture
+See DESIGN.md for more details on internal logic, data flow, and extension plans.
+
+⚠️ Limitations
+Uses in-memory storage only (data resets on restart).
+
+Not ready for production out-of-the-box — persistence, auth, and logging are needed.
+
+💡 Future Improvements
+✅ Add database (Redis, SQLite, etc.)
+
+🔐 JWT Authentication
+
+📊 Analytics dashboard for click tracking
+
+📦 Docker containerization
